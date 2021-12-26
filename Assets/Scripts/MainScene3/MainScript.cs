@@ -22,9 +22,14 @@ public class MainScript : MonoBehaviour
     public GameObject yearMonth;
     public GameObject today;
     public GameObject text_stageCounter;
+    public GameObject text_lifeCounter;
+
+    bool isFinish;
 
     public static int stageCount;
     public static int lifeCount;
+
+    public AudioSource mainAudioSourse;
 
     // Start is called before the first frame update
     void Start()
@@ -71,7 +76,18 @@ public class MainScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Debug.Log("★time"+mainAudioSourse.time);
+
+        if(mainAudioSourse.time > 34 && !isFinish)
+        {
+            isFinish = true;
+            Debug.Log("★Fin");
+
+            //不正解エフェクト
+            JudgeManager.isOut=true;
+
+        }
+
     }
 
     // 引数として受け取った配列の要素番号を並び替える 
@@ -192,9 +208,9 @@ public class MainScript : MonoBehaviour
         text2.GetComponent<Text>().text = days[1].ToString() + "日";
         text3.GetComponent<Text>().text = days[2].ToString() + "日";
         text4.GetComponent<Text>().text = days[3].ToString() + "日";
-        yearMonth.GetComponent<Text>().text = year.ToString() + "/" + month.ToString();
+        yearMonth.GetComponent<Text>().text = year.ToString() + "年" + month.ToString() + "月";
         today.GetComponent<Text>().text = day.ToString();
-        text_stageCounter.GetComponent<Text>().text = stageCount.ToString();
-
+        text_stageCounter.GetComponent<Text>().text = "第 " + stageCount.ToString() + " 問目";
+        text_lifeCounter.GetComponent<Text>().text = "命: " + lifeCount.ToString();
     }
 }
