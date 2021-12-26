@@ -23,6 +23,7 @@ public class MainScript : MonoBehaviour
     public GameObject today;
     public GameObject text_stageCounter;
     public GameObject text_lifeCounter;
+    public GameObject text_timeCounter;
 
     bool isFinish;
 
@@ -30,6 +31,9 @@ public class MainScript : MonoBehaviour
     public static int lifeCount;
 
     public AudioSource mainAudioSourse;
+
+    int remainTime;
+
 
     // Start is called before the first frame update
     void Start()
@@ -78,7 +82,27 @@ public class MainScript : MonoBehaviour
     {
         Debug.Log("štime"+mainAudioSourse.time);
 
-        if(mainAudioSourse.time > 34 && !isFinish)
+        if (remainTime >= 0)
+        {
+            remainTime = 34 - (int)mainAudioSourse.time;
+        }
+        else
+        {
+            remainTime = 0;
+        }
+
+        
+        if (remainTime >= 0)
+        {
+            text_timeCounter.GetComponent<Text>().text = "c‚èŠÔ: " + remainTime.ToString();
+            remainTime = 34 - (int)mainAudioSourse.time;
+        }
+        else
+        {
+            text_timeCounter.GetComponent<Text>().text = "c‚èŠÔ: " + 0; 
+        }
+
+        if (mainAudioSourse.time > 34 && !isFinish)
         {
             isFinish = true;
             Debug.Log("šFin");
@@ -212,5 +236,6 @@ public class MainScript : MonoBehaviour
         today.GetComponent<Text>().text = day.ToString();
         text_stageCounter.GetComponent<Text>().text = "‘æ " + stageCount.ToString() + " –â–Ú";
         text_lifeCounter.GetComponent<Text>().text = "–½: " + lifeCount.ToString();
+
     }
 }

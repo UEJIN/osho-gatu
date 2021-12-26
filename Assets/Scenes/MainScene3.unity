@@ -1100,6 +1100,7 @@ MonoBehaviour:
   today: {fileID: 841310902}
   text_stageCounter: {fileID: 1209140688}
   text_lifeCounter: {fileID: 1901808730}
+  text_timeCounter: {fileID: 2026208741}
   mainAudioSourse: {fileID: 441674896}
 --- !u!1 &703659948
 GameObject:
