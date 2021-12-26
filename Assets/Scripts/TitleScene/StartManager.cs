@@ -14,6 +14,7 @@ public class StartManager : MonoBehaviour
         MainScript.stageCount = 0;
         MainScript.lifeCount = 3;
         showObj_HowTo.SetActive(false); // è¡Ç∑
+        MainScript.timeSpeed = 1f;
     }
 
     // Update is called once per frame

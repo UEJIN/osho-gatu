@@ -9,6 +9,7 @@ public class IntervalManager : MonoBehaviour
 
     public GameObject text_stageCounter;
     public GameObject text_lifeCounter;
+    public AudioSource mainAudioSourse;
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +17,8 @@ public class IntervalManager : MonoBehaviour
         MainScript.stageCount++;
         TextApply();
         Invoke("GoToMainScene", 3f);
+        Time.timeScale = MainScript.timeSpeed;
+        mainAudioSourse.pitch = MainScript.timeSpeed;
     }
 
     // Update is called once per frame

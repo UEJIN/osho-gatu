@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;	// シーン切り替えに必要
 
 public class MainScript : MonoBehaviour
 {
@@ -29,6 +30,7 @@ public class MainScript : MonoBehaviour
 
     public static int stageCount;
     public static int lifeCount;
+    public static float timeSpeed;
 
     public AudioSource mainAudioSourse;
 
@@ -38,6 +40,9 @@ public class MainScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        mainAudioSourse.pitch = timeSpeed;
+
+
         TodaySet();
 
         Debug.Log("★Today="+year.ToString() +"/"+ month.ToString()+"/"+day.ToString());
@@ -113,6 +118,16 @@ public class MainScript : MonoBehaviour
         }
 
     }
+
+    void OnDestroy()
+    {
+        if (stageCount % 5 == 0)
+        {
+            timeSpeed = timeSpeed + 0.25f;
+        }
+
+    }
+
 
     // 引数として受け取った配列の要素番号を並び替える 
     void Shuffle(int[] num)
@@ -238,4 +253,11 @@ public class MainScript : MonoBehaviour
         text_lifeCounter.GetComponent<Text>().text = "命: " + lifeCount.ToString();
 
     }
+
+    public void GoToStart()
+    {
+
+        SceneManager.LoadScene("TitleScene"); //シーン移動
+    }
+
 }

@@ -15,7 +15,7 @@ public class JudgeManager : MonoBehaviour
     public AudioClip sound_ok;
     public AudioClip sound_out;
     public static bool isOut;
-    bool isFinish = false;
+    static bool isFinish = false;
 
     // Start is called before the first frame update
     void Start()
@@ -39,7 +39,7 @@ public class JudgeManager : MonoBehaviour
 
             MainScript.lifeCount--;
 
-            if (MainScript.lifeCount != 0)
+            if (MainScript.lifeCount > 0)
             {
                 Invoke("GoToIntervalScene", 2.0f);　//生きてたら秒後に呼び出す
             }
@@ -55,7 +55,7 @@ public class JudgeManager : MonoBehaviour
     {
         if (text.GetComponent<Text>().text == MainScript.ansDay.ToString() + "日") //正解なら
         {
-
+            isFinish = true;
             //正解エフェクト
             Debug.Log("True");
             StartCoroutine(ShowObject(showObj_ok, 0f));
@@ -67,6 +67,7 @@ public class JudgeManager : MonoBehaviour
         }
         else
         {
+            isFinish = true;
             //不正解エフェクト
             Debug.Log("False");
             StartCoroutine(ShowObject(showObj_out, 0f));
@@ -74,7 +75,7 @@ public class JudgeManager : MonoBehaviour
 
             MainScript.lifeCount--;
 
-            if (MainScript.lifeCount != 0)
+            if (MainScript.lifeCount > 0)
             {
                 Invoke("GoToIntervalScene", 2.0f);　//生きてたら秒後に呼び出す
             }

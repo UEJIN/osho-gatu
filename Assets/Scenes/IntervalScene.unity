@@ -379,6 +379,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text_stageCounter: {fileID: 430006608}
   text_lifeCounter: {fileID: 588737351}
+  mainAudioSourse: {fileID: 2004937438}
 --- !u!1 &1446696159
 GameObject:
   m_ObjectHideFlags: 0
