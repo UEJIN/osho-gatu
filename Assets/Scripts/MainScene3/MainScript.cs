@@ -8,7 +8,7 @@ public class MainScript : MonoBehaviour
     public int year;
     public int month;
     public int day;
-    public int ansDay;
+    public static int ansDay;
     bool leapYear;
 
     public int notAnsDay1;
@@ -21,10 +21,76 @@ public class MainScript : MonoBehaviour
     public GameObject text4;
     public GameObject yearMonth;
     public GameObject today;
+    public GameObject text_stageCounter;
 
+    public static int stageCount;
+    public static int lifeCount;
 
     // Start is called before the first frame update
     void Start()
+    {
+        TodaySet();
+
+        Debug.Log("šToday="+year.ToString() +"/"+ month.ToString()+"/"+day.ToString());
+        Debug.Log("šLeapYear=" + leapYear);
+
+        AnsCalc();
+
+        Debug.Log("šansDay="+ ansDay);
+        
+        //‡@³‰ğ
+        //‡A³‰ğ + -5“úƒ‰ƒ“ƒ_ƒ€
+        //‡B³‰ğ + -10“úƒ‰ƒ“ƒ_ƒ€
+        //‡C³‰ğ + -1“úƒ‰ƒ“ƒ_ƒ€
+        
+        notAnsDay1 = ansDay + Random.Range(-1, 2);
+        notAnsDay2 = ansDay + Random.Range(-5, 6);
+        notAnsDay3 = ansDay + Random.Range(-10, 11);
+        
+        if(notAnsDay1 == ansDay)
+        {
+            notAnsDay1= notAnsDay1 + 11;
+        }
+        if (notAnsDay2 == ansDay)
+        {
+            notAnsDay2 = notAnsDay2 + 12;
+        }
+        if (notAnsDay3 == ansDay)
+        {
+            notAnsDay3 = notAnsDay3 + 13;
+        }
+
+        Debug.Log("ansDay=" + ansDay);
+        Debug.Log("notAnsDay1=" + notAnsDay1);
+        Debug.Log("notAnsDay2=" + notAnsDay2);
+        Debug.Log("notAnsDay3=" + notAnsDay3);
+
+        TextApply();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    // ˆø”‚Æ‚µ‚Äó‚¯æ‚Á‚½”z—ñ‚Ì—v‘f”Ô†‚ğ•À‚Ñ‘Ö‚¦‚é 
+    void Shuffle(int[] num)
+    {
+        for (int i = 0; i < num.Length; i++)
+        {
+            //ià–¾‚PjŒ»İ‚Ì—v‘f‚ğ—a‚¯‚Ä‚¨‚­
+            int temp = num[i];
+            //ià–¾‚Qj“ü‚ê‘Ö‚¦‚éæ‚ğƒ‰ƒ“ƒ_ƒ€‚É‘I‚Ô
+            int randomIndex = Random.Range(0, num.Length);
+            //ià–¾‚RjŒ»İ‚Ì—v‘f‚Éã‘‚«
+            num[i] = num[randomIndex];
+            //ià–¾‚Sj“ü‚ê‘Ö‚¦Œ³‚É—a‚¯‚Ä‚¨‚¢‚½—v‘f‚ğ—^‚¦‚é
+            num[randomIndex] = temp;
+        }
+    }
+
+    void TodaySet()
     {
         //        Œ»İ‚Ì”NŒ“úŒˆ’è
         year = Random.Range(0, 10) * 1000 + Random.Range(0, 10) * 100 + Random.Range(0, 10) * 10 + Random.Range(0, 10) * 1;
@@ -32,7 +98,7 @@ public class MainScript : MonoBehaviour
 
         if (month == 2)
         {
-            if (year%4 == 0)        //‰[”N”»’è
+            if (year % 4 == 0)        //‰[”N”»’è
             {
                 if (year % 100 == 0 && year % 400 != 0)
                 {
@@ -57,7 +123,7 @@ public class MainScript : MonoBehaviour
                 day = Random.Range(1, 29);
             }
         }
-        else if(month == 4 || month == 6 || month == 9 || month == 11)
+        else if (month == 4 || month == 6 || month == 9 || month == 11)
         {
             day = Random.Range(1, 31);
         }
@@ -65,9 +131,10 @@ public class MainScript : MonoBehaviour
         {
             day = Random.Range(1, 32);
         }
-        Debug.Log("šToday="+year.ToString() +"/"+ month.ToString()+"/"+day.ToString());
-        Debug.Log("šLeapYear=" + leapYear);
+    }
 
+    void AnsCalc()
+    {
         //³Œ‚Ü‚Å‚Ì“ú”Šm”F
         ansDay = (12 - month) * 30 + (30 - day) + 1;
 
@@ -75,7 +142,7 @@ public class MainScript : MonoBehaviour
         {
             ansDay = ansDay - 1;
         }
-        else if (leapYear==false && month <= 2)//‚¤‚é‚¤”N‚¶‚á‚È‚¢‚QŒ‚Ü‚½‚®‚È‚ç
+        else if (leapYear == false && month <= 2)//‚¤‚é‚¤”N‚¶‚á‚È‚¢‚QŒ‚Ü‚½‚®‚È‚ç
         {
             ansDay = ansDay - 2;
         }
@@ -84,7 +151,7 @@ public class MainScript : MonoBehaviour
         {
             ansDay = ansDay + 7;
         }
-        else if (month<=3)
+        else if (month <= 3)
         {
             ansDay = ansDay + 6;
         }
@@ -108,51 +175,26 @@ public class MainScript : MonoBehaviour
         {
             ansDay = ansDay + 1;
         }
-        
-        Debug.Log("šansDay="+ ansDay);
-        //‡@³‰ğ
-        //‡A³‰ğ + -5“úƒ‰ƒ“ƒ_ƒ€
-        //‡B³‰ğ + -10“úƒ‰ƒ“ƒ_ƒ€
-        //‡C³‰ğ + -1“úƒ‰ƒ“ƒ_ƒ€
-        //  “š‚¦•À‚×‘Ö‚¦
-
-        notAnsDay1 = ansDay + Random.Range(-1, 2);
-        notAnsDay2 = ansDay + Random.Range(-5, 6);
-        notAnsDay3 = ansDay + Random.Range(-10, 11);
-        
-        if(notAnsDay1 == ansDay)
-        {
-            notAnsDay1= notAnsDay1 + 11;
-        }
-        if (notAnsDay2 == ansDay)
-        {
-            notAnsDay2 = notAnsDay2 + 12;
-        }
-        if (notAnsDay3 == ansDay)
-        {
-            notAnsDay3 = notAnsDay3 + 13;
-        }
-
-        Debug.Log("ansDay=" + ansDay);
-        Debug.Log("notAnsDay1=" + notAnsDay1);
-        Debug.Log("notAnsDay2=" + notAnsDay2);
-        Debug.Log("notAnsDay3=" + notAnsDay3);
-
-
-
-        text1.GetComponent<Text>().text = ansDay.ToString() + "“ú";
-        text2.GetComponent<Text>().text = notAnsDay1.ToString()@+ "“ú";
-        text3.GetComponent<Text>().text = notAnsDay2.ToString() + "“ú";
-        text4.GetComponent<Text>().text = notAnsDay3.ToString() + "“ú";
-        yearMonth.GetComponent<Text>().text = year.ToString() + "/" + month.ToString();
-        today.GetComponent<Text>().text = day.ToString();
-
 
     }
 
-    // Update is called once per frame
-    void Update()
+    void TextApply()
     {
-        
+        int[] days = new int[4];
+        days[0] = ansDay;
+        days[1] = notAnsDay1;
+        days[2] = notAnsDay2;
+        days[3] = notAnsDay3;
+
+        Shuffle(days);
+
+        text1.GetComponent<Text>().text = days[0].ToString() + "“ú";
+        text2.GetComponent<Text>().text = days[1].ToString() + "“ú";
+        text3.GetComponent<Text>().text = days[2].ToString() + "“ú";
+        text4.GetComponent<Text>().text = days[3].ToString() + "“ú";
+        yearMonth.GetComponent<Text>().text = year.ToString() + "/" + month.ToString();
+        today.GetComponent<Text>().text = day.ToString();
+        text_stageCounter.GetComponent<Text>().text = stageCount.ToString();
+
     }
 }
